@@ -27,8 +27,8 @@ const main = async () => {
     //     }
     // }
     console.log(JSON.stringify([{
-        account: "orai1u0vfsjqh0uztlmlwv9cswggn5xkvrt4sayaxme",
-        amounts: ["441051731"]
+        account: "oraivaloper18hr8jggl3xnrutfujy2jwpeu0l76azprkxn29v",
+        amounts: ["663830101955980558336.00000000"]
     }
     ]))
 };
