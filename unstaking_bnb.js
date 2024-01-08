@@ -73,7 +73,6 @@ async function getLastUnstakingIdBNB() {
 }
 
 const main = async () => {
-
     const lastUnstakingIdBNB = await getLastUnstakingIdBNB();
     const lastUnstakingIdOraichain = await httpGet("https://lcd.orai.io/cosmwasm/wasm/v1/contract/orai17sy5njqjt2skvk3d9pxtywsvjf2rasnfhkptsg8xc57v35tdkluqhd3t5l/smart/eyJsYXN0X3Vuc3Rha2luZ19pZCI6e319");
 
