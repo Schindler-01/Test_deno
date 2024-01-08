@@ -1,5 +1,5 @@
 import _ from "https://deno.land/std@0.120.0/node/module.ts";
-import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js"
+import { ethers } from "npm:ethers@5.7.2"
 
 const httpGet = async (url) => {
     const data = await fetch(url).then(data => data.json());
