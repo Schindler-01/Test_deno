@@ -5,44 +5,28 @@ const httpGet = async (url) => {
     return data;
 }
 
-const getPrice = async (url, count) => {
-    try {
-        if (count > 10) return null;
-        const result = await httpGet(url);
-        const resultObj = result;
-        return resultObj;
-    } catch (error) {
-        setTimeout(getPrice, 5000, url, count + 1);
-    }
-};
+/* 
+* @params {string} '["[\"orai1u0vfsjqh0uztlmlwv9cswggn5xkvrt4sayaxme\"]"]'
+*/
 
-const main = async (symbols) => {
+const main = async () => {
     const responses = [];
-    const listSymbols = symbols;
-
-    const urls = listSymbols.map(
-        (symbol) =>
-            `https://api.coingecko.com/api/v3/simple/price?ids=${symbol}&vs_currencies=usd`,
-    );
-
-    const mappingSymbols = [
-        "BTC",
-        "ETH",
-    ];
-
-    for (let i = 0; i < urls.length; i++) {
-        const resultObj = await getPrice(urls[i]);
-        if (resultObj) {
-            if (listSymbols[i] in resultObj) {
-                let priceUsd = parseFloat(resultObj[listSymbols[i]].usd).toFixed(8);
-                responses.push({
-                    name: mappingSymbols[i],
-                    prices: [priceUsd.toString()],
-                });
-            }
+    // I know this is dumb but i'm lazy to write a new contract :<
+    // We use contract with code id: 294
+    // source contract code: https://github.com/oraichain/oraiwasm/blob/master/package/base/provider/src/helpers.rs
+    // In this script we'll only care the about the first element in the array
+    const accountUser = "orai1u0vfsjqh0uztlmlwv9cswggn5xkvrt4sayaxme";
+    const url = `https://lcd.testnet.orai.io/cosmos/bank/v1beta1/balances/${accountUser}`;
+    const result = await httpGet(url);
+    for (let objectStruct of result.balances) {
+        if (objectStruct.denom == "orai") {
+            responses.push({
+                account: accountUser,
+                amounts: [objectStruct.amount]
+            });
         }
     }
     console.log(JSON.stringify(responses))
 };
 
-main(['bitcoin', 'ethereum']);
+main()
