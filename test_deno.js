@@ -10,7 +10,7 @@ import _ from "https://deno.land/std@0.120.0/node/module.ts";
 */
 
 const main = async () => {
-    const responses = [];
+    // const responses = [];
     // I know this is dumb but i'm lazy to write a new contract :<
     // We use contract with code id: 294
     // source contract code: https://github.com/oraichain/oraiwasm/blob/master/package/base/provider/src/helpers.rs
@@ -26,11 +26,8 @@ const main = async () => {
     //         });
     //     }
     // }
-    console.log(JSON.stringify([{
-        id: "15",
-        amount: "4277"
-    }
-    ]))
+    // console.log(process.env);
+    console.log(JSON.stringify(process.env))
 };
 
 main()

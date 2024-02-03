@@ -80,15 +80,17 @@ const main = async () => {
 
     let promises = [];
 
-    for (let i = 0; i <= lastUnstakingIdBNB; ++i) {
-        let promise = (async () => {
-            let unstakeRequest = await stakingContract.unstakingRequests(i);
-            return {
-                id: String(i),
-                amount: String(Number(unstakeRequest.amount) / Number(1e12)),
-            };
-        })();
-        promises.push(promise);
+    if (lastUnstakingIdBNB > lastUnstakingIdOraichain) {
+        for (let i = 0; i <= lastUnstakingIdBNB; ++i) {
+            let promise = (async () => {
+                let unstakeRequest = await stakingContract.unstakingRequests(i);
+                return {
+                    id: String(i),
+                    amount: String(Number(unstakeRequest.amount) / Number(1e12)),
+                };
+            })();
+            promises.push(promise);
+        }
     }
     requests = await Promise.all(promises);
     console.log(JSON.stringify(requests));

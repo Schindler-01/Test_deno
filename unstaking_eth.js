@@ -61,27 +61,28 @@ const stakingAbi = [
     },
 ]
 
-const rpcProvider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed1.binance.org:443");
+const rpcProvider = new ethers.providers.JsonRpcProvider("https://ethereum.publicnode.com");
 const stakingContract = new ethers.Contract(
-    "0xa5263e756234d4d516930dc07290ef1f35e15111",
+    "0x04471C1A8D9E89017191672B59115c07a446BD6A",
     stakingAbi,
     rpcProvider
 )
 
-async function getLastUnstakingIdBNB() {
+async function getLastUnstakingIdETH() {
     return await stakingContract.lastUnstakingRequestId();
 }
 
 const main = async () => {
-
-    const lastUnstakingIdBNB = await getLastUnstakingIdBNB();
-    const lastUnstakingIdOraichain = await httpGet("https://lcd.orai.io/cosmwasm/wasm/v1/contract/orai17sy5njqjt2skvk3d9pxtywsvjf2rasnfhkptsg8xc57v35tdkluqhd3t5l/smart/eyJsYXN0X3Vuc3Rha2luZ19pZCI6e319");
+    const lastUnstakingIdETH = await getLastUnstakingIdETH();
+    const lastUnstakingIdOraichain = await httpGet("https://lcd.orai.io/cosmwasm/wasm/v1/contract/orai127l967w5qjv2r75fyzeq08h0na9rjjy9e0xadjqczc0qpvepwakqlc9vkg/smart/eyJsYXN0X3Vuc3Rha2luZ19pZCI6e319");
 
     let requests = [];
 
     let promises = [];
 
-    for (let i = 0; i <= lastUnstakingIdBNB; ++i) {
+    // if (Number(lastUnstakingIdETH) > lastUnstakingIdOraichain.data) {
+    // }
+    for (let i = 0; i <= Number(lastUnstakingIdETH); ++i) {
         let promise = (async () => {
             let unstakeRequest = await stakingContract.unstakingRequests(i);
             return {
