@@ -4,4 +4,4 @@ const main = async (symbols) => {
     console.log(JSON.stringify(symbols));
 }
 
-main(...process)
+main(process)
